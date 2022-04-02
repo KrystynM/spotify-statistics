@@ -4,6 +4,7 @@ import * as SecureStore from "expo-secure-store";
 import Toast from "react-native-simple-toast";
 
 const authUrl = "http://10.0.2.2:5001";
+axios.defaults.timeout = 10000;
 
 export interface AuthState {
   code: string;
@@ -41,7 +42,6 @@ export const refreshToken = createAsyncThunk("refreshToken", async () => {
   let data = { accessToken: "", authState: "unauthorized" };
   const refreshToken = await SecureStore.getItemAsync("refreshToken");
   if (!refreshToken || refreshToken == "") return data;
-
   await axios
     .post(authUrl + "/refresh", { refreshToken })
     .then((response) => {
@@ -51,7 +51,7 @@ export const refreshToken = createAsyncThunk("refreshToken", async () => {
       };
     })
     .catch((error) => {
-      Toast.show("Error");
+      Toast.show("Error while refreshing token");
       console.log(error);
     });
   return data;
@@ -84,4 +84,4 @@ export const authSlice = createSlice({
 
 export const { setCode, setToken } = authSlice.actions;
 
-export default authSlice.reducer
+export default authSlice.reducer;

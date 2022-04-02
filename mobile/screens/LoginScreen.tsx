@@ -10,6 +10,8 @@ const discovery = {
   authorizationEndpoint: "https://accounts.spotify.com/authorize",
   tokenEndpoint: "https://accounts.spotify.com/api/token",
 };
+const clientId = "";
+const redirectUri = "";
 
 export default function LoginScreen() {
   const dispatch = useAppDispatch();
@@ -17,10 +19,10 @@ export default function LoginScreen() {
   const [request, response, promptAsync] = useAuthRequest(
     {
       responseType: ResponseType.Code,
-      clientId: "f34fc6873a8a42e6a2355391c00f0a8c",
+      clientId: clientId,
       scopes: ["user-top-read"],
       usePKCE: false,
-      redirectUri: "exp://192.168.1.11:19000/",
+      redirectUri: redirectUri,
     },
     discovery
   );

@@ -11,6 +11,7 @@ import axios from "axios";
 import Loader from "./components/Loader";
 import { refreshToken } from "./redux/authSlice";
 import { useEffect } from "react";
+import { View } from "./components/Themed";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -37,7 +38,9 @@ function App() {
   if (!isLoadingComplete || authState == "pending") {
     return (
       <SafeAreaProvider>
-        <Loader showLoader={true} />
+        <View style={{ flex: 1 }}>
+          <Loader showLoader={true} />
+        </View>
       </SafeAreaProvider>
     );
   } else if (authState == "authorized") {
